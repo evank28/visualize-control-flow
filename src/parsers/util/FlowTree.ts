@@ -17,7 +17,7 @@ export class Loop extends FlowTree {
     condition: String;
 
     constructor(code: string, condition: string, action: FlowTree) {
-        super()
+        super();
         this.originalCode = code;
         this.condition = condition;
         this.linearStem.push(action);
@@ -26,6 +26,6 @@ export class Loop extends FlowTree {
 
 }
 
-export class WhileLoop extends Loop {
+// export class WhileLoop extends Loop {
     
-}
+// }
