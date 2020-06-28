@@ -24,9 +24,9 @@
         "category": "Learning"
       },
       {
-        "command": "visualize-control-flow.openWebView",
-        "title": "OpenWebView",
-        "category": "Learning"
+        "command": "visualize-control-flow.visualizeOpenFile",
+        "title": "Visualize Open File",
+        "category": "Visualize Control Flow"
       }
     ]
   },
