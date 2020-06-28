@@ -1,4 +1,5 @@
 {
+  "type": "module",
   "name": "visualize-control-flow",
   "displayName": "Visualize Control Flow",
   "description": "Want to visualize the control flow of your code? Using this extension, you can generate a diagram that shows the control flow of your code. This is great particularly for students to see their code's logic in a diagram. We use a UML Activity Diagram format, making these diagrams easy to view. Currently supports visualizing control flow of Python code. Actively developed by @evank28, @TA4life, and @lolkillaz as part of #VSCodeHackathon.  ",
@@ -48,5 +49,8 @@
     "mocha": "^7.1.2",
     "typescript": "^3.8.3",
     "vscode-test": "^1.3.0"
+  },
+  "dependencies": {
+    "@svgdotjs/svg.js": "^3.0.16"
   }
 }
