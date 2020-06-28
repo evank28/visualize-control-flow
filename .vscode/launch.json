@@ -5,6 +5,13 @@
 {
 	"version": "0.2.0",
 	"configurations": [
+		
+		{
+			"command": "npm run compile",
+			"name": "npm run compile",
+			"request": "launch",	
+			"type": "node-terminal"
+		},
 		{
 			"name": "Run Extension",
 			"type": "extensionHost",

@@ -1,10 +1,13 @@
 import { FlowTree } from "./FlowTree";
 
-export class ControlStatement {
+export class ControlStatement extends FlowTree{
     originalCode: string;
+    // parent: FlowTree | undefined;
 
-    constructor(code: string) {
+    constructor(code: string, parent?: FlowTree) {
+        super();
         this.originalCode = code;
+        this.parent = parent || undefined;
     }
 
     getHeight(): number {
@@ -22,8 +25,8 @@ export class Conditional extends ControlStatement{
     ifAction: FlowTree;
     elseAction: FlowTree | undefined;
 
-    constructor(code: string, condition: string, ifAction: FlowTree, elseAction?: FlowTree) {
-        super(code);
+    constructor(code: string, condition: string, ifAction: FlowTree, elseAction?: FlowTree, parent?: FlowTree) {
+        super(code, parent);
         this.condition = condition;
         this.ifAction = ifAction;
         this.elseAction = elseAction;
@@ -31,7 +34,7 @@ export class Conditional extends ControlStatement{
 
     getHeight(): number {
         if (this.elseAction) {
-            return 1 + Math.max(this.ifAction.getHeight(), this.elseAction?.getHeight());
+            return 1 + Math.max(this.ifAction.getHeight(), this.elseAction.getHeight());
         }
         else {
             return 1 + this.ifAction.getHeight();
@@ -41,7 +44,7 @@ export class Conditional extends ControlStatement{
 
     getWidth(): number {
         if (this.elseAction) {
-            return this.ifAction.getWidth() +  this.elseAction?.getWidth();
+            return this.ifAction.getWidth() +  this.elseAction.getWidth();
         }
         else {
             return this.ifAction.getWidth();
@@ -64,5 +67,8 @@ export class Elif extends Conditional{
 }
 
 export class ExpressionBlock extends ControlStatement{
+    addLine(line: string): void {
+        this.originalCode += ("\n" + line);
+    }
 
 }
