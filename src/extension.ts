@@ -36,7 +36,9 @@ export function activate(context: vscode.ExtensionContext) {
       );
 
       // panel.webview.html = `<p>HelloWorld</p>`;
-      panel.webview.html = generateDiagramAsHTML();
+      panel.webview.html = `<img src='https://i.imgur.com/v5uLUCd.png' width="500"/>`;
+      
+      // panel.webview.html = generateDiagramAsHTML();
     }
   );
 
