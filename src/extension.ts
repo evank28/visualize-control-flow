@@ -1,6 +1,7 @@
 // The module 'vscode' contains the VS Code extensibility API
 // Import the module and reference it with the alias vscode in your code below
 import * as vscode from "vscode";
+import { generateDiagramAsHTML } from "./html-generator/GenerateDiagram";
 
 // this method is called when your extension is activated
 // your extension is activated the very first time the command is executed
@@ -24,22 +25,23 @@ export function activate(context: vscode.ExtensionContext) {
     }
   );
 
-  let openWebView = vscode.commands.registerCommand(
+  let visualizeOpenFile = vscode.commands.registerCommand(
     "visualize-control-flow.visualizeOpenFile",
     () => {
       const panel = vscode.window.createWebviewPanel(
-        "UMLView",
-        "UML View",
+        "Control Flow Diagram",
+        "Control Flow Diagram: python_demo2.py",
         vscode.ViewColumn.One,
         {}
       );
 
-      panel.webview.html = `<p>HelloWorld</p>`;
+      // panel.webview.html = `<p>HelloWorld</p>`;
+      panel.webview.html = generateDiagramAsHTML();
     }
   );
 
   context.subscriptions.push(disposable);
-  context.subscriptions.push(openWebView);
+  context.subscriptions.push(visualizeOpenFile);
 }
 
 // this method is called when your extension is deactivated
