@@ -1,23 +1,27 @@
 # Visualize Control Flow
 
-Want to visualize the control flow of your code? Using this extension, you can generate a diagram that shows the control flow of your code. This is great particularly for students to see their code's logic in a diagram. We use a UML Activity Diagram format, making these diagrams easy to view. Currently supports visualizing control flow of Python code. Actively developed by @evank28, @TA4life, and @AronZeng as part of #VSCodeHackathon.
+Want to visualize the control flow of your code? Using this extension, you can generate a diagram that shows the control flow of your code. This is great particularly for students to see their code's logic in a diagram. We use a UML Activity Diagram format, making these diagrams easy to view. Currently supports visualizing control flow of Python code. Actively developed by [@evank28](https://github.com/evank28) and [@AronZeng](https://github.com/AronZeng) as part of #VSCodeHackathon.
 
 Links: [GitHub](https://github.com/evank28/visualize-control-flow), [VS Code Marketplace](https://marketplace.visualstudio.com/items?itemName=team-visualize.visualize-control-flow)
 
 ## Features
 
-Describe specific features of your extension including screenshots of your extension in action. Image paths are relative to this README file.
+Adds new commands:
 
-For example if there is an image subfolder under your extension project workspace:
+### Visualize Control Flow: Visualize Open File
 
-\!\[feature X\]\(images/feature-x.png\)
+![Visualize Open File](./assets/control-flow-demo-large.gif)
 
-> Tip: Many popular extensions utilize animations. This is an excellent way to show off your extension! We recommend short, focused animations that are easy to follow.
+## Usage
+
+- With the extension installed, open the Command Pallete in Visual Studio Code (Ctr + Shift + P).
+- Select `Visualize Control Flow: Visualize Open File` with a Python (`.py`) file open.
 
 ## Requirements
 
-If you have any requirements or dependencies, add a section describing those and how to install and configure them.
+- TypeScript
 
+<!-- 
 ## Extension Settings
 
 Include if your extension adds any VS Code settings through the `contributes.configuration` extension point.
@@ -27,33 +31,20 @@ For example:
 This extension contributes the following settings:
 
 * `myExtension.enable`: enable/disable this extension
-* `myExtension.thing`: set to `blah` to do something
+* `myExtension.thing`: set to `blah` to do something -->
 
 ## Known Issues
 
-Calling out known issues can help limit users opening duplicate issues against your extension.
+Where do we start?!
+
+- Limited Control Flow Logic is Supported
+- Not dynamic yet
+- Play around and see...😎
 
 ## Release Notes
 
-Users appreciate release notes as you update your extension.
+Published Versions:
 
 ### 1.0.0
 
 Initial release of Visualize Control Flow
-
------------------------------------------------------------------------------------------------------------
-
-## Working with Markdown
-
-**Note:** You can author your README using Visual Studio Code.  Here are some useful editor keyboard shortcuts:
-
-* Split the editor (`Cmd+\` on macOS or `Ctrl+\` on Windows and Linux)
-* Toggle preview (`Shift+CMD+V` on macOS or `Shift+Ctrl+V` on Windows and Linux)
-* Press `Ctrl+Space` (Windows, Linux) or `Cmd+Space` (macOS) to see a list of Markdown snippets
-
-### For more information
-
-* [Visual Studio Code's Markdown Support](http://code.visualstudio.com/docs/languages/markdown)
-* [Markdown Syntax Reference](https://help.github.com/articles/markdown-basics/)
-
-**Enjoy!**
