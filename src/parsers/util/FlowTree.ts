@@ -1,4 +1,5 @@
 import { ControlStatement } from "./ControlStatements";
+import { TreeItem } from "vscode";
 
 export interface FlowTree {
 
@@ -6,8 +7,14 @@ export interface FlowTree {
 export class FlowTree {
     linearStem: Array<FlowTree | ControlStatement>;
 
-    constructor() {
-        this.linearStem = [];
+    constructor(linearStem?: Array<FlowTree | ControlStatement>) {
+        this.linearStem = linearStem || [];
+    }
+
+    getHeight(): number {
+        // Gets the max height from all composed trees
+        let heights: Array<number> = this.linearStem.map(tree => tree.getHeight());
+        return 1 + Math.max(...heights);
     }
     
 }
