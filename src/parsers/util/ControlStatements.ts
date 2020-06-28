@@ -11,6 +11,10 @@ export class ControlStatement {
         return 1;
     }
 
+    getWidth(): number {
+        return 1;
+    }
+
 }
 
 export class Conditional extends ControlStatement{
@@ -35,12 +39,23 @@ export class Conditional extends ControlStatement{
             
     }
 
+    getWidth(): number {
+        if (this.elseAction) {
+            return this.ifAction.getWidth() +  this.elseAction?.getWidth();
+        }
+        else {
+            return this.ifAction.getWidth();
+        }
+            
+    }
+
 }
 
 export class Elif extends Conditional{
     subconditionals: Array<Conditional>;
 
     // TODO: Implement getHeight for subconditions
+    // TODO: Implement getWidth for subconditions
 
     constructor(code: string, condition: string, ifAction: FlowTree, elseAction: FlowTree, subconditionals: Array<Conditional>) {
     super(code, condition, ifAction, elseAction);

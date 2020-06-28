@@ -12,9 +12,15 @@ export class FlowTree {
     }
 
     getHeight(): number {
-        // Gets the max height from all composed trees
+        // Gets the max height from all composed trees/ControlStatement
         let heights: Array<number> = this.linearStem.map(tree => tree.getHeight());
         return 1 + Math.max(...heights);
+    }
+
+    getWidth(): number {
+        // Gets the sum of the widths of all composed trees/ControlStatements
+        let widths: Array<number> = this.linearStem.map(tree => tree.getWidth());
+        return widths.reduce((prev, cur) => prev + cur);
     }
     
 }
