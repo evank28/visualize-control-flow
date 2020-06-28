@@ -20,22 +20,12 @@ export function activate(context: vscode.ExtensionContext) {
       // The code you place here will be executed every time your command is executed
 
       // Display a message box to the user
-      // vscode.window.showInformationMessage(
-      //   "Hello World from Visualize Control Flow!"
-      // );
-      const panel = vscode.window.createWebviewPanel(
-        "UMLView",
-        "UML View",
-        vscode.ViewColumn.One,
-        {}
-      );
-
-      panel.webview.html = `<p>HelloWorld</p>`;
+      vscode.window.showInformationMessage('Hello World from Visualize Control Flow!');
     }
   );
 
   let openWebView = vscode.commands.registerCommand(
-    "visualize-control-flow.openWebView",
+    "visualize-control-flow.visualizeOpenFile",
     () => {
       const panel = vscode.window.createWebviewPanel(
         "UMLView",
