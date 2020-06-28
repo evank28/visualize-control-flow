@@ -114,8 +114,8 @@ function parseCodeSimple(code: string): CodeTree {
 
         // Tracks the indent hierarchy dynamically, without relying on a constant TAB_SIZE
         // TODO: Change this to a Stack, since it is used like one (end of array = top of stack)
-        // Note: the first element is -1, so that the first row of the file is detected as an indent change
-        var indentChanges: Array<number> = [-1];
+        // Note: the first element is 0, so that the first row of the file is detected as an indent change
+        var indentChanges: Array<number> = [0];
         var currentParent: CodeTree = stem;
             
         for (let i = 0; i < lines.length; i++) {
@@ -174,4 +174,4 @@ if x:
 else:
     print("False")`;
 
-console.log(parseCodeSimple(TEST));
+console.log(parseCodeSimple(TEST).toString(0));

@@ -71,6 +71,15 @@ export class CodeTree{
     setParent(parent: CodeTree): void {
         this.parent = parent;
     }
+
+    toString(depth: number): string {
+        let childrenString = " ".repeat(depth*4);
+        for (const child of this.children){
+            childrenString += child.toString(depth+1);
+        }
+            
+        return `\n${this.lineString}${childrenString}`;
+    }
     
 
 }
