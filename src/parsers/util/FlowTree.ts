@@ -4,6 +4,8 @@ export interface FlowTree {
 
 }
 export class FlowTree {
+    // When emty, linearStem is an empty list
+    // When just a root, linearStem has a single element
     linearStem: Array<FlowTree | ControlStatement>;
     parent: FlowTree | undefined;
 
@@ -32,6 +34,10 @@ export class FlowTree {
     setParent(parent: FlowTree): void {
         this.parent = parent;
     }
+
+    insertRoot(newRoot: FlowTree): void {
+        this.linearStem.unshift(newRoot);
+    }
     
 }
 
@@ -50,6 +56,7 @@ export class FlowTree {
 // export class WhileLoop extends Loop {
     
 // }
+const KEYWORDS = ["if", "else"];
 
 export class CodeTree{
     // Tree class. Root has undefined parent. Leafs have empty list children. Line value is the code on the line.
@@ -79,6 +86,34 @@ export class CodeTree{
         }
             
         return `\n${this.lineString}${childrenString}`;
+    }
+
+    getHeight(): number {
+        // TODO: Fix -infinity bug here
+        //  Root height is 1
+        let heights: Array<number> = this.children.map(tree => tree.getHeight());
+        return 1 + Math.max(...heights);
+    }
+
+    peekNextChild(): CodeTree | null {
+        // Returns null if no next child
+        if (this.children.length === 0){
+            return null;
+        }
+        else {
+            return this.children[0];
+        }
+    }
+
+    keyword(): string {
+        const trimmedLine = this.lineString.trim();
+        const keyword = trimmedLine.substr(0, trimmedLine.indexOf(" ") + 1);
+        if (KEYWORDS.includes(keyword)){
+            return keyword;
+        }
+        else{
+            return "OtherExpression";
+        }
     }
     
 

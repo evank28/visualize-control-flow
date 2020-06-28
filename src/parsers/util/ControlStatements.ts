@@ -1,4 +1,5 @@
 import { FlowTree } from "./FlowTree";
+import { extensions } from "vscode";
 
 export class ControlStatement extends FlowTree{
     originalCode: string;
@@ -70,5 +71,13 @@ export class ExpressionBlock extends ControlStatement{
     addLine(line: string): void {
         this.originalCode += ("\n" + line);
     }
+
+}
+
+export class Expression extends ControlStatement {
+
+}
+
+export class ActionPart extends ControlStatement{
 
 }

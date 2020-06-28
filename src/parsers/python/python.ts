@@ -1,19 +1,101 @@
 import { FlowTree, CodeTree } from "../util/FlowTree";
 import { countStartingSpaces } from "../util/Helpers";
-import { ControlStatement, Conditional } from "../util/ControlStatements";
+import { Expression, ControlStatement, Conditional, ActionPart } from "../util/ControlStatements";
+//  Get the TAB_SIZE from the "Editor: Tab Size" from the VS Code API -- NOT IN USE
+// const TAB_SIZE = 4 ;
 
-// TODO: Get the TAB_SIZE from the "Editor: Tab Size" from the VS Code API
-const TAB_SIZE = 4 ;
+export function parse(code: string): FlowTree {
+    let stemFlowTree = new FlowTree();
+    let codeTree = parseCodeSimple(code);
+    // POSTORDER TRAVERSAL through children, adding each child tree
+    if (codeTree.getHeight() > 0) {
+        while (codeTree.children.length !== 0){
+            const child = codeTree.children.shift();
+            // @ts-ignore - Just checked that it has children
+            const convertedChild = postorderParseHelper(child);
+            stemFlowTree.addSubTree(convertedChild);
+        }
+    }
+    return stemFlowTree;
+}
 
-// function parse(code: string): FlowTree {
-//     let stemFlowTree = new FlowTree();
-//     const lines: Array<string> = code.split("\n");
+function postorderParseHelper(codeTree: CodeTree): FlowTree{
+    // IF IT HAS NO CHILDREN, RETURN AN EXPRESSION FOR IT:
+    if (codeTree.children.length === 0){
+        const expr = new Expression(codeTree.lineString.trim());
+        return expr;
+    }
+     // IF IT HAS CHILDREN
+    else {
+        // CHECK what type of special tree it is:
+        // const trimmedLine = codeTree.lineString.trim();
+        // const keyword = trimmedLine.substr(0, trimmedLine.indexOf(" ") + 1);
+        const keyword = codeTree.keyword();
+        switch(keyword){
+            case "if":
+                // Look at the if contents
+                let ifAction = new ActionPart(keyword);
+                for (const child of codeTree.children){
+                    ifAction.addSubTree(postorderParseHelper(child));
+                }
+                // Create IF-ELSE block statement
+                    // get condition (no if, no semicolon)
+                    const trimmedLine = codeTree.lineString.trim();
+                    const condition = trimmedLine.substr(keyword.length+1, trimmedLine.length - 1); 
+
+                let flowTree = new Conditional(codeTree.lineString, condition, ifAction);
+                
+                // Look at the else contents, if these is an else -- by advancing to the next line
+                let elseChild = codeTree.parent?.peekNextChild();
+                if (elseChild && elseChild.keyword() === "else"){
+                    //  @ts-ignore
+                    let convertedChild = postorderParseHelper(codeTree.parent.children.shift());
+                    flowTree.addSubTree(convertedChild);
+                }
+                return flowTree;
+            case "else":
+                // Create a special action block that holds all the children of the else block
+                let action = new ActionPart(keyword);
+                for (const child of codeTree.children){
+                    action.addSubTree(postorderParseHelper(child));
+                }
+                return action;
+            default:
+                throw Error("Not a recognized keyword.");
+        }
+    }
+                            
+    
+//                     }
+    //     // Traverse Children Recursively
+    //     let flowTree = new FlowTree();
+    //     while (codeTree.children.length > 0) {
+    //         // Pop the first child
+    //        const child = codeTree.children.shift();
+    //         // @ts-ignore -- `child` will neessarily not be undefined, since we checked the child length in loop condition
+    //        const convertedChild = postorderParseHelper(child);
+    //        flowTree.addSubTree(convertedChild)
+
+    //     }
+    //     root = new FlowTree();
+    //     root.addSubTree(root);
+    //     flowTree.insertRoot()
+    //     // Add root
+
+
+    // }
+  
+    // return flowTree
+
+}
+    // Read parent node
 
 //     if (lines.length > 0) {
+//         lines ++
 
 //         // Reads the number of spaces on the first line
 //         // const baseIndent = lines[0].length - lines[0].trimLeft().length; 
-//         const baseIndent =  countStartingSpaces(lines[0]);
+//         // const baseIndent =  countStartingSpaces(lines[0]);
 
 //         // Tracks the indent hierarchy dynamically, without relying on a constant TAB_SIZE
 //         // TODO: Change this to a Stack, since it is used like one (end of array = top of stack)
@@ -22,6 +104,13 @@ const TAB_SIZE = 4 ;
 //         let currentParent: FlowTree = stemFlowTree;
 //         let currentStatement: FlowTree| undefined = undefined;
 //         // currentParent.addSubTree(currentStatement)
+
+//         // Traverse down a branch
+ 
+//         while 
+
+
+
 //         for (let i = 0; i < lines.length; i++) {
 //             const line = lines[i]
 //             const indent = countStartingSpaces(line);
@@ -94,7 +183,7 @@ const TAB_SIZE = 4 ;
 
 //     return stemFlowTree;
     
-// }
+
 
 // function translateKeyword(word: string): ControlStatement | FlowTree {
 //     switch(keyword){
@@ -109,8 +198,8 @@ function parseCodeSimple(code: string): CodeTree {
     if (lines.length > 0) {
         // Reads the number of spaces on the first line
         // const baseIndent = lines[0].length - lines[0].trimLeft().length; 
-        // TODO: BUG -- assumes first line is not an empty string. Why can't this just be 0?
-        const baseIndent =  countStartingSpaces(lines[0]); 
+        // DISABLED: assumes first line is not an empty string. Why can't this just be 0?
+        // const baseIndent =  countStartingSpaces(lines[0]); 
 
         // Tracks the indent hierarchy dynamically, without relying on a constant TAB_SIZE
         // TODO: Change this to a Stack, since it is used like one (end of array = top of stack)
@@ -174,4 +263,8 @@ if x:
 else:
     print("False")`;
 
-console.log(parseCodeSimple(TEST).toString(0));
+// const codeTree = parseCodeSimple(TEST);  
+// console.log(codeTree.toString(0));
+
+const flowTree = parse(TEST);
+console.log(flowTree);
