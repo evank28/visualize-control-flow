@@ -1,6 +1,8 @@
-# visualize-control-flow README
+# Visualize Control Flow
 
-This is the README for your extension "visualize-control-flow". After writing up a brief description, we recommend including the following sections.
+Download from Visual Studio Code Extension Marketplace: [LINK HERE]('')
+
+Want to visualize the control flow of your code? Using this extension, you can generate a diagram that shows the control flow of your code. This is great particularly for students to see their code's logic in a diagram. We use a UML Activity Diagram format, making these diagrams easy to view. Currently supports visualizing control flow of Python code. Actively developed by @evank28, @TA4life, and @AronZeng as part of #VSCodeHackathon.
 
 ## Features
 
@@ -37,15 +39,7 @@ Users appreciate release notes as you update your extension.
 
 ### 1.0.0
 
-Initial release of ...
-
-### 1.0.1
-
-Fixed issue #.
-
-### 1.1.0
-
-Added features X, Y, and Z.
+Initial release of Visualize Control Flow
 
 -----------------------------------------------------------------------------------------------------------
 
